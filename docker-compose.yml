@@ -1,0 +1,33 @@
+version: '2'
+services:
+  api:
+    container_name: countercard-api
+    build: .
+    image: countercard:2.0.0
+    ports:
+     - "8000:80"
+    volumes:
+     - .:/project
+    depends_on:
+      - database
+  client:
+    container_name: countercard-client
+    build: ../counter-card-client
+    image: countercard-client:2.0.0
+    ports:
+     - "8001:80"
+    volumes:
+     - ../counter-card-client:/project
+  database:
+    container_name: countercard-database
+    image: "mysql:5.7"
+    ports:
+      - "3307:3306"
+    volumes:
+      - countercard-db-data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+
+volumes:
+    countercard-db-data:
