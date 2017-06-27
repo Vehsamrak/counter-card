@@ -2,12 +2,12 @@ version: '2'
 services:
   api:
     container_name: countercard-api
-    build: .
+    build: ../counter-card-api
     image: countercard:2.0.0
     ports:
      - "8000:80"
     volumes:
-     - .:/project
+     - ../counter-card-api:/project
     depends_on:
       - database
   client:
